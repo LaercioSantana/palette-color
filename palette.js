@@ -1,6 +1,7 @@
 function Palette(element, op){
 	this.element = element;
 	this.palette = op.palette || [];
+	this.recentLabel = op.recentLabel || "<b>Recent</b>";
 	this.$palette;
 
 	this.cellWidth = op.cellWidth || 10;
@@ -39,6 +40,7 @@ Palette.prototype = {
 
 		//build recent colors
 		var recentColorsContainer = $("<div class='pc-recent-colors-container'>");
+		recentColorsContainer.append($("<div class='pc-recent-label'>"+this.recentLabel+"</div>"))
 		this.__fillWithCells(recentColorsContainer, {x:this.cellWidth, y:this.cellHeight}, [new Array(this.palette[0].length)]);
 		recentColorsContainer.find(".pc-thumb-el").click(function(){
 			var color = tinycolor($(this).find(".pc-thumb-inner").css("background-color"));
