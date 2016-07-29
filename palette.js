@@ -101,6 +101,10 @@ Palette.prototype = {
 	addOnColorSelected: function(listener){
 		this.onColorSelectedListeners.push(listener);
 	},
+	resetRecentColors: function(){
+		for(var i = this.recentPalette.length - 1; i > -1; i--)
+			this.__addColorToRecent(new tinycolor(this.recentPalette[i]));
+	},
 	__notifyColorSelected: function(color){
 		for(var i = 0; i < this.onColorSelectedListeners.length; i++)
 			this.onColorSelectedListeners[i](color);
