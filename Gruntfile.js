@@ -6,10 +6,9 @@ module.exports = function( grunt ) {
       options : {
         mangle : false
       },
-
       build_minify : {
         files : {
-          'dist/palette.min.js' : [ 'src/js/palette.js', 'node_modules/tinycolor2/tinycolor.js' ]
+          'dist/palette.min.js' : [ 'src/js/palette.js', 'node_modules/tinycolor2/tinycolor.js']
         }
       },
       build : {
@@ -17,19 +16,39 @@ module.exports = function( grunt ) {
           beautify: true
         },
         files : {
-          'dist/palette.js' : [ 'src/js/palette.js', 'node_modules/tinycolor2/tinycolor.js' ]
+          'dist/palette.js' : [ 'src/js/palette.js', 'node_modules/tinycolor2/tinycolor.js']
      	}
       }
+    },
+
+    cssmin: {
+      options: {
+        shorthandCompacting: false,
+        roundingPrecision: -1,
+      },
+      target: {
+        files: {
+          'dist/palette.min.css': ['src/css/palette.css']
+        }
+      }
+    },
+    
+    concat: {
+        dist: {
+          files: {
+            'dist/palette.css' : ['src/css/palette.css']
+          }
+        }
     }
 
   });
 
 
-  // Plugins do Grunt
   grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
 
-  // Tarefas que serão executadas
-  grunt.registerTask( 'default', [ 'uglify' ] );
+  grunt.registerTask( 'default', [ 'uglify', "cssmin", "concat"] );
 
 };
