@@ -1,0 +1,31 @@
+{
+  "name": "palette-color",
+  "version": "0.0.1",
+  "description": "Float palette color to use for input color in front-end aplications\" ",
+  "main": "palette.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LaercioSantana/palette-color.git"
+  },
+  "keywords": [
+    "color",
+    "palette-color",
+    "choose",
+    "input"
+  ],
+  "author": "Laercio Santana",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LaercioSantana/palette-color/issues"
+  },
+  "dependencies": {
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-uglify": "^2.0.0"
+  }
+}
