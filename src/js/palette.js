@@ -125,23 +125,23 @@
 	}
 
  	//jquery plugin definition
- 	var dataID = "paletteCollor.id";
- 	$.fn.paletteCollor = function (op){
+ 	var dataID = "paletteColor.id";
+ 	$.fn.paletteColor = function (op){
 
  		if(typeof op === 'string'){
  			var args = Array.prototype.slice.call(arguments, 1);
 
  			this.each(function(){
- 				var paletteCollor = $(this).data(dataID); 
- 				if(paletteCollor)
+ 				var paletteColor = $(this).data(dataID); 
+ 				if(paletteColor)
 	 				if(op == "show"){
-	 					paletteCollor.show(true);
+	 					paletteColor.show(true);
 	 				}
 	 				else if(op == "hide"){
-	 					paletteCollor.show(false);
+	 					paletteColor.show(false);
 	 				}
-	 				else if(typeof paletteCollor[op] === 'function'){
-	 					paletteCollor[op].apply(paletteCollor, args);
+	 				else if(typeof paletteColor[op] === 'function'){
+	 					paletteColor[op].apply(paletteColor, args);
 	 				}
 	 		});
 
@@ -149,8 +149,8 @@
  		}
 
  		return this.each(function () {
-            var paletteCollor = new Palette(this, op);
-            $(this).data(dataID, paletteCollor);
+            var paletteColor = new Palette(this, op);
+            $(this).data(dataID, paletteColor);
         });
  	}
 
