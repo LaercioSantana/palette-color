@@ -10,7 +10,14 @@
             }
         }.bind(this), this.__buildUI();
     }
-    Palette.prototype = {
+    $.extend(Palette, {
+        METHOD_ALIAS: {
+            dragable: "setDragable",
+            position: "setPosition",
+            onColorSelected: "addOnColorSelected",
+            resetRecentColors: "resetRecentColors"
+        }
+    }), Palette.prototype = {
         __buildUI: function() {
             this.$palette = $(this.element), this.$palette.addClass("pc-palette");
             var checkmark = function(cell, color) {
@@ -71,18 +78,21 @@
             }), $(cellsInners[cellsInners.length - 1]).css("background-color", color._originalInput);
         }
     };
-    var dataID = "paletteCollor.id";
-    $.fn.paletteCollor = function(op) {
+    var dataID = "paletteColor.id";
+    $.fn.paletteColor = function(op) {
         if ("string" == typeof op) {
             var args = Array.prototype.slice.call(arguments, 1);
             return this.each(function() {
-                var paletteCollor = $(this).data(dataID);
-                paletteCollor && ("show" == op ? paletteCollor.show(!0) : "hide" == op ? paletteCollor.show(!1) : "function" == typeof paletteCollor[op] && paletteCollor[op].apply(paletteCollor, args));
+                var paletteColor = $(this).data(dataID);
+                if (paletteColor) if ("show" == op) paletteColor.show(!0); else if ("hide" == op) paletteColor.show(!1); else if (Palette.METHOD_ALIAS[op]) {
+                    var method = Palette.METHOD_ALIAS[op];
+                    paletteColor[method].apply(paletteColor, args);
+                } else "function" == typeof paletteColor[op] && paletteColor[op].apply(paletteColor, args);
             }), this;
         }
         return this.each(function() {
-            var paletteCollor = new Palette(this, op);
-            $(this).data(dataID, paletteCollor);
+            var paletteColor = new Palette(this, op);
+            $(this).data(dataID, paletteColor);
         });
     };
 }(jQuery), function(Math) {

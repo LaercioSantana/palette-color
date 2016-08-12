@@ -22,9 +22,9 @@
                 ["#CCCCFF", "#CC99FF", "#CC66FF", "#9966FF", "#6600CC", "#800080", "#4B0082", "#330033", "#000000", "#FB00FB"]]
   		});
     $palette.paletteColor("show");
-    $palette.paletteColor("setPosition", {x:100, y:100});
-    $palette.paletteColor("setDragable", true);
-    $palette.paletteColor("addOnColorSelected", function(color){
+    $palette.paletteColor("position", {x:100, y:100});
+    $palette.paletteColor("dragable", true);
+    $palette.paletteColor("onColorSelected", function(color){
       console.log(color);
     });
   </script>

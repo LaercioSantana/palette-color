@@ -23,6 +23,14 @@
 		
 		this.__buildUI();
 	}
+	$.extend(Palette, {
+		METHOD_ALIAS: {
+			"dragable": "setDragable",
+			"position": "setPosition",
+			"onColorSelected": "addOnColorSelected",
+			"resetRecentColors": "resetRecentColors"
+		}
+	})
 	Palette.prototype = {
 		__buildUI: function(){
 			this.$palette = $(this.element);
@@ -139,6 +147,10 @@
 	 				}
 	 				else if(op == "hide"){
 	 					paletteColor.show(false);
+	 				}
+	 				else if(Palette.METHOD_ALIAS[op]){
+	 					var method = Palette.METHOD_ALIAS[op];
+	 					paletteColor[method].apply(paletteColor, args);
 	 				}
 	 				else if(typeof paletteColor[op] === 'function'){
 	 					paletteColor[op].apply(paletteColor, args);
