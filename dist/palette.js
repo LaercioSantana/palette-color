@@ -1,76 +1,91 @@
-function Palette(element, op) {
-    this.element = element, this.palette = op.palette || [], this.recentLabel = op.recentLabel || "<b>Recent</b>", 
-    this.recentPalette = op.recentPalette || new Array(this.palette[0].length), this.$palette, 
-    this.cellWidth = op.cellWidth || 10, this.cellHeight = op.cellHeight || 10, this.$cellSelected, 
-    this.onColorSelectedListeners = [], this.dragFunction = function(e) {
-        if (1 == e.originalEvent.buttons) {
-            var palette = this.$palette;
-            palette.css("top", e.originalEvent.movementY + palette.position().top), palette.css("left", e.originalEvent.movementX + palette.position().left);
-        }
-    }.bind(this), this.__buildUI();
-}
-
-Palette.prototype = {
-    __buildUI: function() {
-        this.$palette = $(this.element), this.$palette.addClass("pc-palette");
-        var checkmark = function(cell, color) {
-            null != this.$cellSelected && this.$cellSelected.removeClass("pc-selected dark light"), 
-            this.$cellSelected = $(cell), color.isDark() ? $(cell).addClass("pc-selected light") : $(cell).addClass("pc-selected dark");
-        }.bind(this), recentColorsContainer = $("<div class='pc-recent-colors-container'>");
-        recentColorsContainer.append($("<div class='pc-recent-label'>" + this.recentLabel + "</div>")), 
-        this.__fillWithCells(recentColorsContainer, {
-            x: this.cellWidth,
-            y: this.cellHeight
-        }, [ this.recentPalette ]), recentColorsContainer.find(".pc-thumb-el").click(function() {
-            var color = tinycolor($(this).find(".pc-thumb-inner").css("background-color"));
-            0 !== color._a && (checkmark(this, color), palette.__notifyColorSelected(color));
-        }), this.$palette.append(recentColorsContainer);
-        var colorsContainer = $("<div class='pc-colors-container'>");
-        this.__fillWithCells(colorsContainer, {
-            x: this.cellWidth,
-            y: this.cellHeight
-        }, this.palette);
-        var palette = this;
-        colorsContainer.find(".pc-thumb-el").click(function() {
-            var color = tinycolor($(this).find(".pc-thumb-inner").css("background-color"));
-            checkmark(this, color), palette.__addColorToRecent(color), palette.__notifyColorSelected(color);
-        }), this.$palette.append(colorsContainer);
-    },
-    __fillWithCells: function(container, cell, colors) {
-        for (var i = 0; i < colors.length; i++) {
-            var activeRow = $("<div class='pc-row-" + i + "'>");
-            container.append(activeRow);
-            for (var j = 0; j < colors[i].length; j++) {
-                var cell = $("<span class='pc-thumb-el'>"), cellInner = $("<span class='pc-thumb-inner'>");
-                cellInner.css("background-color", colors[i][j]), activeRow.append(cell.append(cellInner));
+!function($) {
+    function Palette(element, op) {
+        this.element = element, this.palette = op.palette || [], this.recentLabel = op.recentLabel || "<b>Recent</b>", 
+        this.recentPalette = op.recentPalette || new Array(this.palette[0].length), this.$palette, 
+        this.cellWidth = op.cellWidth || 10, this.cellHeight = op.cellHeight || 10, this.$cellSelected, 
+        this.onColorSelectedListeners = [], this.dragFunction = function(e) {
+            if (1 == e.originalEvent.buttons) {
+                var palette = this.$palette;
+                palette.css("top", e.originalEvent.movementY + palette.position().top), palette.css("left", e.originalEvent.movementX + palette.position().left);
             }
-        }
-    },
-    show: function(value) {
-        value ? this.$palette.removeClass("hidden") : this.$palette.addClass("hidden");
-    },
-    setPosition: function(p) {
-        this.$palette.css("top", p.y), this.$palette.css("left", p.x);
-    },
-    setDragable: function(value) {
-        value ? this.$palette.mousemove(this.dragFunction) : this.$palette.off("mousemove", this.dragFunction);
-    },
-    addOnColorSelected: function(listener) {
-        this.onColorSelectedListeners.push(listener);
-    },
-    resetRecentColors: function() {
-        for (var i = this.recentPalette.length - 1; i > -1; i--) this.__addColorToRecent(new tinycolor(this.recentPalette[i]));
-    },
-    __notifyColorSelected: function(color) {
-        for (var i = 0; i < this.onColorSelectedListeners.length; i++) this.onColorSelectedListeners[i](color);
-    },
-    __addColorToRecent: function(color) {
-        var cellsInners = $(".pc-recent-colors-container .pc-thumb-el .pc-thumb-inner");
-        cellsInners = $(cellsInners.get().reverse()), cellsInners.each(function(i, el) {
-            i < cellsInners.length - 1 && $(this).css("background-color", $(cellsInners[i + 1]).css("background-color"));
-        }), $(cellsInners[cellsInners.length - 1]).css("background-color", color._originalInput);
+        }.bind(this), this.__buildUI();
     }
-}, function(Math) {
+    Palette.prototype = {
+        __buildUI: function() {
+            this.$palette = $(this.element), this.$palette.addClass("pc-palette");
+            var checkmark = function(cell, color) {
+                null != this.$cellSelected && this.$cellSelected.removeClass("pc-selected dark light"), 
+                this.$cellSelected = $(cell), color.isDark() ? $(cell).addClass("pc-selected light") : $(cell).addClass("pc-selected dark");
+            }.bind(this), recentColorsContainer = $("<div class='pc-recent-colors-container'>");
+            recentColorsContainer.append($("<div class='pc-recent-label'>" + this.recentLabel + "</div>")), 
+            this.__fillWithCells(recentColorsContainer, {
+                x: this.cellWidth,
+                y: this.cellHeight
+            }, [ this.recentPalette ]), recentColorsContainer.find(".pc-thumb-el").click(function() {
+                var color = tinycolor($(this).find(".pc-thumb-inner").css("background-color"));
+                0 !== color._a && (checkmark(this, color), palette.__notifyColorSelected(color));
+            }), this.$palette.append(recentColorsContainer);
+            var colorsContainer = $("<div class='pc-colors-container'>");
+            this.__fillWithCells(colorsContainer, {
+                x: this.cellWidth,
+                y: this.cellHeight
+            }, this.palette);
+            var palette = this;
+            colorsContainer.find(".pc-thumb-el").click(function() {
+                var color = tinycolor($(this).find(".pc-thumb-inner").css("background-color"));
+                checkmark(this, color), palette.__addColorToRecent(color), palette.__notifyColorSelected(color);
+            }), this.$palette.append(colorsContainer);
+        },
+        __fillWithCells: function(container, cell, colors) {
+            for (var i = 0; i < colors.length; i++) {
+                var activeRow = $("<div class='pc-row-" + i + "'>");
+                container.append(activeRow);
+                for (var j = 0; j < colors[i].length; j++) {
+                    var cell = $("<span class='pc-thumb-el'>"), cellInner = $("<span class='pc-thumb-inner'>");
+                    cellInner.css("background-color", colors[i][j]), activeRow.append(cell.append(cellInner));
+                }
+            }
+        },
+        show: function(value) {
+            value ? this.$palette.removeClass("hidden") : this.$palette.addClass("hidden");
+        },
+        setPosition: function(p) {
+            this.$palette.css("top", p.y), this.$palette.css("left", p.x);
+        },
+        setDragable: function(value) {
+            value ? this.$palette.mousemove(this.dragFunction) : this.$palette.off("mousemove", this.dragFunction);
+        },
+        addOnColorSelected: function(listener) {
+            this.onColorSelectedListeners.push(listener);
+        },
+        resetRecentColors: function() {
+            for (var i = this.recentPalette.length - 1; i > -1; i--) this.__addColorToRecent(new tinycolor(this.recentPalette[i]));
+        },
+        __notifyColorSelected: function(color) {
+            for (var i = 0; i < this.onColorSelectedListeners.length; i++) this.onColorSelectedListeners[i](color);
+        },
+        __addColorToRecent: function(color) {
+            var cellsInners = $(".pc-recent-colors-container .pc-thumb-el .pc-thumb-inner");
+            cellsInners = $(cellsInners.get().reverse()), cellsInners.each(function(i, el) {
+                i < cellsInners.length - 1 && $(this).css("background-color", $(cellsInners[i + 1]).css("background-color"));
+            }), $(cellsInners[cellsInners.length - 1]).css("background-color", color._originalInput);
+        }
+    };
+    var dataID = "paletteCollor.id";
+    $.fn.paletteCollor = function(op) {
+        if ("string" == typeof op) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            return this.each(function() {
+                var paletteCollor = $(this).data(dataID);
+                paletteCollor && ("show" == op ? paletteCollor.show(!0) : "hide" == op ? paletteCollor.show(!1) : "function" == typeof paletteCollor[op] && paletteCollor[op].apply(paletteCollor, args));
+            }), this;
+        }
+        return this.each(function() {
+            var paletteCollor = new Palette(this, op);
+            $(this).data(dataID, paletteCollor);
+        });
+    };
+}(jQuery), function(Math) {
     function tinycolor(color, opts) {
         if (color = color ? color : "", opts = opts || {}, color instanceof tinycolor) return color;
         if (!(this instanceof tinycolor)) return new tinycolor(color, opts);

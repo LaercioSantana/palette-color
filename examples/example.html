@@ -11,7 +11,7 @@
   <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="../dist/palette.js"></script>
   <script type="text/javascript">
-  	var palette =  new Palette("#colorpicker", {
+  	var $palette = $("#colorpicker").paletteCollor({
   		palette: [["#FFC0CB", "#FF99CC", "#FF6699", "#FF3366", "#FF0033", "#CC0000", "#800000", "#330000", "#FFFFFF", "#FB0000"],
                 ["#FFEFD5", "#FFCC33", "#FF9900", "#FF9933", "#FF6600", "#CC6600", "#996600", "#333300", "#C0C0C0", "#FC7D00"],
                 ["#FFEACD", "#FFFF99", "#FFFF66", "#FFD700", "#FFCC66", "#CC9900", "#993300", "#663300", "#A0A0A0", "#BCFB00"],
@@ -21,11 +21,11 @@
                 ["#BCD4E6", "#99CCFF", "#66CCFF", "#6699FF", "#7D7DFF", "#3333FF", "#0000CC", "#000033", "#202020", "#7C00FA"],
                 ["#CCCCFF", "#CC99FF", "#CC66FF", "#9966FF", "#6600CC", "#800080", "#4B0082", "#330033", "#000000", "#FB00FB"]]
   		});
-    palette.show(true);
-    palette.setPosition({x:100, y:100});
-    palette.setDragable(true);
-    palette.addOnColorSelected(function(color){
+    $palette.paletteCollor("show");
+    $palette.paletteCollor("setPosition", {x:100, y:100});
+    $palette.paletteCollor("setDragable", true);
+    $palette.paletteCollor("addOnColorSelected", function(color){
       console.log(color);
-    })
+    });
   </script>
 </html>
