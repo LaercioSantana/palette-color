@@ -39,14 +39,25 @@ module.exports = function( grunt ) {
             'dist/palette.css' : ['src/css/palette.css']
           }
         }
+    },
+
+    watch: {
+      css: {
+        files: ['src/css/*.css'],
+        tasks: ['concat', 'cssmin']
+      },
+      js: {
+        files: ['src/js/*.js'],
+        tasks: ['uglify:build']
+      }
     }
 
   });
 
-
   grunt.loadNpmTasks( 'grunt-contrib-uglify' );
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
 
   grunt.registerTask( 'default', [ 'uglify', "cssmin", "concat"] );
