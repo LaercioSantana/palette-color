@@ -10,8 +10,8 @@ Usage
 -----
 
 ```js
-<script src='spectrum.js'></script>
-<link rel='stylesheet' href='spectrum.css' />
+<script src='palette.js'></script>
+<link rel='stylesheet' href='palette.css' />
 
 <div id="colorpicker"></div>
 
