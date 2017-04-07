@@ -1,7 +1,7 @@
 Palette Color
 =============
 
-This Jquery Plugin is a simple palette color
+This Jquery Plugin is a simple palette color. See a [demo](https://laerciosantana.github.io/palette-color).
 
 ![Palette Color](https://raw.githubusercontent.com/LaercioSantana/palette-color/master/imgs/example.png)
 
