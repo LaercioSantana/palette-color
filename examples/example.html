@@ -1,0 +1,31 @@
+
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+	<link rel="stylesheet"  href="../dist/palette.min.css" type="text/css"/>
+  </head>
+  <body>
+	<div id="colorpicker"></div>
+  </body>
+  <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../dist/palette.js"></script>
+  <script type="text/javascript">
+  	var $palette = $("#colorpicker").paletteColor({
+  		palette: [["#FFC0CB", "#FF99CC", "#FF6699", "#FF3366", "#FF0033", "#CC0000", "#800000", "#330000", "#FFFFFF", "#FB0000"],
+                ["#FFEFD5", "#FFCC33", "#FF9900", "#FF9933", "#FF6600", "#CC6600", "#996600", "#333300", "#C0C0C0", "#FC7D00"],
+                ["#FFEACD", "#FFFF99", "#FFFF66", "#FFD700", "#FFCC66", "#CC9900", "#993300", "#663300", "#A0A0A0", "#BCFB00"],
+                ["#CCFFCC", "#CCFF66", "#99FF00", "#99CC00", "#66CC00", "#669900", "#339900", "#006633", "#808080", "#00FC00"],
+                ["#D0F0C0", "#99FF99", "#66FF00", "#33FF00", "#00CC00", "#009900", "#006400", "#003300", "#606060", "#00FCFC"],
+                ["#AFEEEE", "#99FFFF", "#33FFCC", "#0099FF", "#0099CC", "#006699", "#0033CC", "#003399", "#404040", "#0000FC"],
+                ["#BCD4E6", "#99CCFF", "#66CCFF", "#6699FF", "#7D7DFF", "#3333FF", "#0000CC", "#000033", "#202020", "#7C00FA"],
+                ["#CCCCFF", "#CC99FF", "#CC66FF", "#9966FF", "#6600CC", "#800080", "#4B0082", "#330033", "#000000", "#FB00FB"]]
+  		});
+    $palette.paletteColor("show");
+    $palette.paletteColor("position", {x:100, y:100});
+    $palette.paletteColor("dragable", true);
+    $palette.paletteColor("onColorSelected", function(color){
+      console.log(color);
+    });
+  </script>
+</html>
